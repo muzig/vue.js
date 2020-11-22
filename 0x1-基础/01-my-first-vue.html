@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My First Vue</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <!-- 02 - 模板语法 => 插值/指令 -->
+    <div id="app">
+      <!-- 文本插值 -->
+      <p>{{a}}</p>
+      <!-- 03 - 指令 => v-if v-for v-bind(:) v-on(@) v-slot(#) v-html v-model -->
+      <!-- raw HTML -->
+      <p><span v-html="b"></span></p>
+      <!-- 属性绑定 => 完全支持 JS 表达式 -->
+      <button v-bind:disabled="c">属性绑定</button>
+      <!-- 动态参数 => @[eventname]="xxx" -->
+      <!-- 约束: 动态参数名均为小写, 若为 eventName, 会强制解析为 eventname -->
+      <button @[eventName]="onEventName">动态参数</button>
+      <!-- 修饰符 => .prevent -->
+      <button @click.prevent="onPrevent">指令修饰符</button>
+      <!-- 04 - 计算属性 & 监听器 -->
+      <p><span>计算属性:</span><span>{{name}}</span></p>
+      <p><span>监听器:</span><span>{{fullName}}</span></p>
+      <p>
+        <input type="text" v-model="fn" />
+        <input type="text" v-model="ln" />
+      </p>
+    </div>
+    <script>
+      // 01 - 构建实例
+      var app = new Vue({
+        el: "#app",
+        data: {
+          a: "Hello Vue!",
+          b: "<h1>raw HTML</h1>", // NOTE: 注意 xss 攻击
+          c: true,
+          eventname: "click",
+          fn: "FirstName",
+          ln: "LastName",
+          fullName: "",
+        },
+        computed: {
+          name() {
+            return this.fn + " " + this.ln;
+          },
+        },
+        watch: {
+          fn(src) {
+            this.fullName = src + " " + this.ln;
+          },
+          ln(src) {
+            this.fullName = this.fn + " " + src;
+          },
+        },
+        methods: {
+          onEventName() {
+            alert("动态参数");
+          },
+          onPrevent() {
+            alert("指令修饰符");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
+<!-- 额外补充 -->
+<!-- 1. Mustache 语法无法作用属性, 即 {{}} 写法 -->
+<!-- 2. 模板表达式都被放在沙盒中，只能访问全局变量的一个白名单，如 Math 和 Date 。你不应该在模板表达式中试图访问用户定义的全局变量。 -->
