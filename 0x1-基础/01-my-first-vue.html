@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My First Vue</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style type="text/css">
+      .myColor {
+        color: red;
+      }
+    </style>
   </head>
   <body>
     <!-- 02 - 模板语法 => 插值/指令 -->
@@ -28,6 +33,18 @@
         <input type="text" v-model="fn" />
         <input type="text" v-model="ln" />
       </p>
+      <!-- class 与 style 绑定 -->
+      <p>
+        <span :class="[textClass]">我是红色</span>
+        <span :style="[myStyle]">我是蓝色</span>
+      </p>
+      <!-- 条件渲染 -->
+      <p>
+        <span v-if="condition">我会被渲染</span>
+        <span v-else>我不会被渲染</span>
+      </p>
+      <!-- 列表渲染 -->
+      <!-- <p> <ul v-for="(item, index) in list" :key="index"> <li>{{item.name}}</li> </ul> </p> -->
     </div>
     <script>
       // 01 - 构建实例
@@ -41,6 +58,16 @@
           fn: "FirstName",
           ln: "LastName",
           fullName: "",
+          condition: true,
+          list: [
+            { name: "xiaoming" },
+            { name: "xiaohua" },
+            { name: "xiaohua" },
+          ],
+          textClass: "myColor",
+          myStyle: {
+            color: "blue",
+          },
         },
         computed: {
           name() {
