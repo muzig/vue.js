@@ -35,6 +35,10 @@
       </p>
       <!-- class 与 style 绑定 -->
       <p>
+        <!-- 字符串方式 -->
+        <span :class="{myColor:true}">字符串方式</span>
+        <span :style="{color:myRed}">字符串方式</span>
+        <!-- 数组方式 -->
         <span :class="[textClass]">我是红色</span>
         <span :style="[myStyle]">我是蓝色</span>
       </p>
@@ -45,6 +49,8 @@
       </p>
       <!-- 列表渲染 -->
       <!-- <p> <ul v-for="(item, index) in list" :key="index"> <li>{{item.name}}</li> </ul> </p> -->
+      <!-- 事件处理 -->
+      <p><button @click="onCount($event)">请点我{{count}}</button></p>
     </div>
     <script>
       // 01 - 构建实例
@@ -68,6 +74,8 @@
           myStyle: {
             color: "blue",
           },
+          myRed: "red",
+          count: 0,
         },
         computed: {
           name() {
@@ -88,6 +96,10 @@
           },
           onPrevent() {
             alert("指令修饰符");
+          },
+          onCount(e) {
+            this.count++;
+            console.log(e);
           },
         },
       });
