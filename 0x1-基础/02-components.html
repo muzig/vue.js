@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button-counter :name="name"></button-counter>
+      <button-counter :count="count" @cli="onCount"></button-counter>
+      <button-counter v-model="count">{{count}}</button-counter>
+    </div>
+    <script>
+      // 组件基础用法 - 全局注册 & 局部注册
+      Vue.component("button-counter", {
+        props: ["name", "count"], // 组件属性
+        data: function () {
+          return {};
+        },
+        // $emit() => 监听子组件
+        // $event 用于获取事件抛出的值
+        template: `
+        <div>
+        <button @click="$emit('cli', 10)">{{name}}点击{{count}}</button>
+        <!-- 组件支持 v-model -->
+        <p><input :value="value" @input="$emit('input', $event.target.value)"></input></p>
+        </div>
+        `,
+      });
+      var app = new Vue({
+        el: "#app",
+        data: {
+          name: "小明",
+          count: 0,
+        },
+        methods: {
+          onCount(e) {
+            console.log(e);
+            this.count += e;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
+<!-- 三大绑定简写方式 -->
+<!-- v-bind : -->
+<!-- v-on @ -->
+<!-- v-slot # -->
+
+<!-- NOTE: -->
+<!-- 1. 组件只能有一个 root 节点 -->
