@@ -51,6 +51,16 @@
       <!-- <p> <ul v-for="(item, index) in list" :key="index"> <li>{{item.name}}</li> </ul> </p> -->
       <!-- 事件处理 -->
       <p><button @click="onCount($event)">请点我{{count}}</button></p>
+      <!-- 表单处理 -->
+      <p><input type="text" v-model="a" /></p>
+      <p><textarea name="" id="" cols="30" rows="10" v-model="b"></textarea></p>
+      <p>
+        <select name="" id="" v-model="c">
+          <option value="true">A</option>
+          <option value="false">B</option>
+        </select>
+        <span>{{c}}</span>
+      </p>
     </div>
     <script>
       // 01 - 构建实例
